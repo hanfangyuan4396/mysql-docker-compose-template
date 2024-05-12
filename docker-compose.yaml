@@ -8,14 +8,13 @@ services:
     container_name: xx-mysql
     environment:
       MYSQL_ROOT_PASSWORD: zhangsan123
-      # 设置数据库默认的字符集
-      MYSQL_CHARSET: utf8mb4
-      MYSQL_COLLATION: utf8mb4_unicode_ci
     ports:
       - "3306:3306"
     volumes:
-    # 数据库挂载
-      -  ./mysql_data:/var/lib/mysql
+    # 设置数据库默认的字符集
+      - ./charset_and_collation.cnf:/etc/mysql/conf.d/my_custom.cnf
+    # 数据挂载
+      - ./mysql_data:/var/lib/mysql
     # 空白数据库会执行下面的sql脚本
       - ./xxx_database.sql:/docker-entrypoint-initdb.d/init-db.sql 
     restart: always
